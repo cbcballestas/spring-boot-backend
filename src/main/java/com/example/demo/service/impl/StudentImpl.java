@@ -35,6 +35,9 @@ public class StudentImpl extends CRUDImpl<Student, Long> implements IStudentServ
 		return studentRepository;
 	}
 
+	/**
+	 * Method which save student's information
+	 */
 	@Override
 	public ResponseEntity<Student> save(Student student) {
 
@@ -50,6 +53,9 @@ public class StudentImpl extends CRUDImpl<Student, Long> implements IStudentServ
 		return new ResponseEntity<>(studentRepository.save(student), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Method which updates student's name or email, searching by ID
+	 */
 	@Override
 	@Transactional
 	public ResponseEntity<Student> updateStudent(Long id, String name, String email) {
@@ -60,7 +66,7 @@ public class StudentImpl extends CRUDImpl<Student, Long> implements IStudentServ
 		}
 		if (StudentUtil.isDifferent(student.getEmail(), email)) {
 
-			// Verify is email has been taken
+			// Verify if email has been taken
 			Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
 
 			if (studentOptional.isPresent()) {
@@ -70,6 +76,8 @@ public class StudentImpl extends CRUDImpl<Student, Long> implements IStudentServ
 
 			student.setEmail(email);
 		}
+		
+		logger.info("Student data has been updated....");
 
 		return ResponseEntity.ok(student);
 	}

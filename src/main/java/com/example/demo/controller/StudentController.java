@@ -35,18 +35,32 @@ public class StudentController {
 		this.studentService = studentService;
 	}
 
+	/**
+	 * Get all students
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<List<Student>> getStudents() {
 		logger.info("Loading student list....");
 		return studentService.getAllRecords();
 	}
 
+	/**
+	 * Get student data searching by ID
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Student> getStudentById(@PathVariable(name = "id") Long id) {
 		logger.info("Loading student info...");
 		return studentService.getRecordById(id);
 	}
 
+	/**
+	 * Save student data in database
+	 * @param student
+	 * @return Student Object
+	 */
 	@PostMapping
 	public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
 		logger.info("Saving student data....");
@@ -68,6 +82,9 @@ public class StudentController {
 		return studentService.updateStudent(id, name, email);
 	}
 
+	/**
+	 * Method which deletes student from database, searching by ID
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteStudent(@PathVariable(name = "id") Long id) {
 		logger.info("Deleting student data....");
