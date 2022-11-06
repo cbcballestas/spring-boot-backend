@@ -10,6 +10,12 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ResponseExceptionHandler {
 
+	/**
+	 * Method which handle all exceptions and return an error response
+	 * @param exception
+	 * @param request
+	 * @return ErrorResponse object
+	 */
 	@ExceptionHandler(GlobalException.class)
 	public ResponseEntity<ErrorResponse> handleGlobalException(GlobalException exception, WebRequest request) {
 		ErrorResponse error = new ErrorResponse(LocalDateTime.now(), exception.getMessage(),
